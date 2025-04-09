@@ -6,9 +6,10 @@ import OnlineStatusIndicator from "./components/OnlineStatusIndicator";
 import ThemeToggle from "./components/ThemeToggle";
 import { useUpdateAllCryptos } from "./hooks/useCrypto";
 import { Crypto } from "./types/types";
-import SkeletonCryptoList from './components/SkeletonCryptoList';
+import SkeletonCryptoList from "./components/skelet-ui/SkeletonCryptoList";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SkeletonAddForm from "./components/skelet-ui/SkeletonAddForm";
 
 const queryClient = new QueryClient();
 const LOCAL_STORAGE_KEY = "trackedCryptos";
@@ -57,20 +58,21 @@ const App = () => {
     theme="colored"
   />;
 
-
   return (
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen p-6 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
         <div className="container mx-auto max-w-2xl">
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-4xl font-bold">Crypto Tracker</h1>
-            
+
             <ThemeToggle />
           </div>
 
           <OnlineStatusIndicator />
-          
-          {loading ? <SkeletonCryptoList /> : (
+
+          {loading ? (
+            <SkeletonAddForm />
+          ) : (
             <AddCryptoForm
               onAdd={(name) =>
                 setCryptos((prev) => [
@@ -79,8 +81,8 @@ const App = () => {
                 ])
               }
               existingCryptos={cryptos.map((c) => c.name)}
-            
-            />)}
+            />
+          )}
 
           <div className="flex justify-end mb-4">
             <button
@@ -91,13 +93,17 @@ const App = () => {
             </button>
           </div>
 
-          <CryptoList
-            cryptos={cryptos}
-            onDelete={(name) =>
-              setCryptos((prev) => prev.filter((c) => c.name !== name))
-            }
-            onRateUpdate={handleCryptoUpdate}
-          />
+          {loading ? (
+            <SkeletonCryptoList />
+          ) : (
+            <CryptoList
+              cryptos={cryptos}
+              onDelete={(name) =>
+                setCryptos((prev) => prev.filter((c) => c.name !== name))
+              }
+              onRateUpdate={handleCryptoUpdate}
+            />
+          )}
         </div>
         <ToastContainer />
       </div>
