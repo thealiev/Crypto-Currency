@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import AddCryptoForm from "./components/AddCryptoForm";
 import CryptoList from "./components/CryptoList";
 import OnlineStatusIndicator from "./components/OnlineStatusIndicator";
-import ThemeToggle from "./components/ThemeToggle";
+// import ThemeToggle from "./components/ThemeToggle";
 import { useUpdateAllCryptos } from "./hooks/useCrypto";
 import { Crypto } from "./types/types";
 import SkeletonCryptoList from "./components/skelet-ui/SkeletonCryptoList";
@@ -65,7 +65,7 @@ const App = () => {
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-4xl font-bold">Crypto Tracker</h1>
 
-            <ThemeToggle />
+            {/* <ThemeToggle /> */}
           </div>
 
           <OnlineStatusIndicator />
