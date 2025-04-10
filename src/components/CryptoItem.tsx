@@ -11,7 +11,8 @@ type Props = {
 
 const CryptoItem = ({ crypto, onDelete, onRateUpdate }: Props) => {
   const { data, refetch, isError, isLoading, error } = useCrypto(crypto.name);
-
+  console.log('CryptoItem' + crypto.name);
+  
   useEffect(() => {
     if (data !== undefined && data !== null) {
       onRateUpdate(crypto.name, data);
